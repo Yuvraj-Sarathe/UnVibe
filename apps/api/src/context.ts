@@ -11,7 +11,7 @@ export interface ContextDeps {
   prisma: PrismaClient;
   logger: Logger;
   io: Server;
-  submissionQueue: Queue;
+  submissionQueue: Queue | null; // null when Redis is unavailable
 }
 
 // ---------------------------------------------------------------------------
