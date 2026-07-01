@@ -9,6 +9,7 @@ import { PrismaClient } from '@prisma/client';
 import { Queue } from 'bullmq';
 import net from 'net';
 import { router, publicProcedure } from './trpc';
+import { createContext } from './context';
 import { createSubmissionWorker } from './services/submission-worker';
 import dotenv from 'dotenv';
 
@@ -147,7 +148,7 @@ app.use(
   '/trpc',
   trpcExpress.createExpressMiddleware({
     router: appRouter,
-    createContext: () => ({ prisma, logger, io, submissionQueue }),
+    createContext: (opts) => createContext(opts, { prisma, logger, io, submissionQueue }),
   })
 );
 
